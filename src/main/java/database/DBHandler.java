@@ -12,8 +12,11 @@ public class DBHandler {
     private final String DB_PORT = "3306/";
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String MY_DB_TEST = "mydbtest";
+    private final String LOGIN = "root";
+    private final String PASSWORD = "13frog";
     private static final String TIME_ZONE = "?useUnicode=true&useJDBCCompliantTimezoneShift=" +
             "true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
 
     public DBHandler() {
         this.connection = openConnection();
@@ -24,13 +27,8 @@ public class DBHandler {
         try {
             Driver driver = (Driver) Class.forName(DRIVER).newInstance();
             DriverManager.registerDriver(driver);
-            StringBuilder url = new StringBuilder();
-            url.append(DB_TYPE)
-                    .append(DB_HOST)
-                    .append(DB_PORT)
-                    .append(MY_DB_TEST)
-                    .append(TIME_ZONE);
-            return DriverManager.getConnection(url.toString(), "root", "13frog");
+               return DriverManager.getConnection(DB_TYPE + DB_HOST
+                    + DB_PORT + MY_DB_TEST + TIME_ZONE, LOGIN, PASSWORD);
         } catch (ClassNotFoundException | IllegalAccessException |
                 InstantiationException | SQLException ex) {
             ex.printStackTrace();
